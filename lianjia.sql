@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2018-04-22 10:40:09
+Date: 2018-05-06 09:22:02
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -30,6 +30,34 @@ CREATE TABLE `attention` (
 -- ----------------------------
 -- Records of attention
 -- ----------------------------
+
+-- ----------------------------
+-- Table structure for banner
+-- ----------------------------
+DROP TABLE IF EXISTS `banner`;
+CREATE TABLE `banner` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `image` varchar(255) NOT NULL,
+  `url` varchar(255) NOT NULL,
+  `status` int(11) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of banner
+-- ----------------------------
+INSERT INTO `banner` VALUES ('1', '11', '111', '1');
+INSERT INTO `banner` VALUES ('2', '22', '222', '1');
+INSERT INTO `banner` VALUES ('3', '333', '333', '1');
+INSERT INTO `banner` VALUES ('4', '1', '2', '1');
+INSERT INTO `banner` VALUES ('5', '1', '2', '1');
+INSERT INTO `banner` VALUES ('6', '1', '2', '1');
+INSERT INTO `banner` VALUES ('7', '1', '2', '1');
+INSERT INTO `banner` VALUES ('8', '1', '2', '1');
+INSERT INTO `banner` VALUES ('9', '1', '2', '1');
+INSERT INTO `banner` VALUES ('10', '1', '2', '1');
+INSERT INTO `banner` VALUES ('11', '1', '2', '1');
+INSERT INTO `banner` VALUES ('12', '1', '2', '1');
 
 -- ----------------------------
 -- Table structure for broker
@@ -66,6 +94,24 @@ CREATE TABLE `broker_feedback` (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for hotpush
+-- ----------------------------
+DROP TABLE IF EXISTS `hotpush`;
+CREATE TABLE `hotpush` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `image` varchar(255) NOT NULL,
+  `url` varchar(255) NOT NULL,
+  `status` int(11) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of hotpush
+-- ----------------------------
+INSERT INTO `hotpush` VALUES ('1', '11', '11', '1');
+INSERT INTO `hotpush` VALUES ('2', '22', '22', '1');
+
+-- ----------------------------
 -- Table structure for house
 -- ----------------------------
 DROP TABLE IF EXISTS `house`;
@@ -77,13 +123,20 @@ CREATE TABLE `house` (
   `area` float(255,0) NOT NULL COMMENT '建筑面积',
   `describe` text NOT NULL COMMENT '描述',
   `house_introduction` text NOT NULL COMMENT '房源介绍',
-  `status` int(11) NOT NULL DEFAULT '0' COMMENT '房屋销售状态',
+  `status` int(11) NOT NULL DEFAULT '1' COMMENT '房屋销售状态',
+  `xiaoqu` varchar(255) NOT NULL COMMENT '小区',
+  `unit_price` float NOT NULL,
+  `region` varchar(255) NOT NULL COMMENT '地址',
+  `orientation_id` int(11) NOT NULL COMMENT '朝向',
+  `tab_id` varchar(255) DEFAULT '' COMMENT '标签',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of house
 -- ----------------------------
+INSERT INTO `house` VALUES ('1', '11', '11', '2', '11', '11', '11', '1', '11', '11', '11', '1', '1,2,3');
+INSERT INTO `house` VALUES ('2', '22', '22', '3', '22', '22', '22', '1', '22', '2', '22', '2', '3,4,5');
 
 -- ----------------------------
 -- Table structure for house_image
@@ -93,12 +146,19 @@ CREATE TABLE `house_image` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '图片id',
   `house_id` int(11) NOT NULL COMMENT '房屋id',
   `image` varchar(255) NOT NULL COMMENT '图片路径',
+  `status` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of house_image
 -- ----------------------------
+INSERT INTO `house_image` VALUES ('1', '1', '222', '1');
+INSERT INTO `house_image` VALUES ('2', '2', '3333', '1');
+INSERT INTO `house_image` VALUES ('3', '2', '333', '1');
+INSERT INTO `house_image` VALUES ('4', '2', '44', '1');
+INSERT INTO `house_image` VALUES ('5', '1', '32', '1');
+INSERT INTO `house_image` VALUES ('6', '1', '34', '1');
 
 -- ----------------------------
 -- Table structure for house_type
@@ -107,12 +167,39 @@ DROP TABLE IF EXISTS `house_type`;
 CREATE TABLE `house_type` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `type` varchar(255) NOT NULL COMMENT '房屋类型',
+  `status` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of house_type
 -- ----------------------------
+INSERT INTO `house_type` VALUES ('1', '一室', '1');
+INSERT INTO `house_type` VALUES ('2', '二室', '1');
+INSERT INTO `house_type` VALUES ('3', '三室', '1');
+INSERT INTO `house_type` VALUES ('4', '四室', '1');
+INSERT INTO `house_type` VALUES ('5', '五室', '1');
+INSERT INTO `house_type` VALUES ('6', '五室以上', '1');
+
+-- ----------------------------
+-- Table structure for orientation
+-- ----------------------------
+DROP TABLE IF EXISTS `orientation`;
+CREATE TABLE `orientation` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `status` int(11) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of orientation
+-- ----------------------------
+INSERT INTO `orientation` VALUES ('1', '朝东', '1');
+INSERT INTO `orientation` VALUES ('2', '朝南', '1');
+INSERT INTO `orientation` VALUES ('3', '朝西', '1');
+INSERT INTO `orientation` VALUES ('4', '朝北', '1');
+INSERT INTO `orientation` VALUES ('5', '南北', '1');
 
 -- ----------------------------
 -- Table structure for region
@@ -3652,6 +3739,28 @@ INSERT INTO `region` VALUES ('3520', '石河子市', '379', '3');
 INSERT INTO `region` VALUES ('3521', '阿拉尔市', '379', '3');
 INSERT INTO `region` VALUES ('3522', '图木舒克市', '379', '3');
 INSERT INTO `region` VALUES ('3523', '五家渠市', '379', '3');
+
+-- ----------------------------
+-- Table structure for tab
+-- ----------------------------
+DROP TABLE IF EXISTS `tab`;
+CREATE TABLE `tab` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL COMMENT '标签',
+  `status` int(11) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of tab
+-- ----------------------------
+INSERT INTO `tab` VALUES ('1', '满两年', '1');
+INSERT INTO `tab` VALUES ('2', '满五年', '1');
+INSERT INTO `tab` VALUES ('3', '新上', '1');
+INSERT INTO `tab` VALUES ('4', '随时看房', '1');
+INSERT INTO `tab` VALUES ('5', '不看商业类', '1');
+INSERT INTO `tab` VALUES ('6', '不看地下室', '1');
+INSERT INTO `tab` VALUES ('7', '优选', '1');
 
 -- ----------------------------
 -- Table structure for user
