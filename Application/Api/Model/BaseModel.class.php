@@ -6,8 +6,9 @@ class BaseModel extends RelationModel{
 			$info = $this->where("id= {$id}")->find();
 			return $info;
 	}
-	public function getLists($offset=0,$pageSize=20,$order ='id asc',$where='1'){
-			$data = $this->where("status=1 and {$where}")->order("{$order}")->relation(true)->limit($offset,$pageSize)->select();
+	public function getLists($where= array(),$offset=0,$pageSize=20,$order ='id asc'){
+			$where['status'] =1;
+			$data = $this->where($where)->order("{$order}")->relation(true)->limit($offset,$pageSize)->select();
 			return $data;
 	}
 }

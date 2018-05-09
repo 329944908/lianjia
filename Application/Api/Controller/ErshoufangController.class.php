@@ -10,10 +10,19 @@ class ErshoufangController extends CommonController {
 	public function index(){
 		$bannerModel = D('Banner');
 		$bannerLists = $bannerModel->getLists();
+		$findConditionModel = D('Findcondition');
 		$houseModel =D('House');
 		$tabModel = D('Tab');
 		$house_imageModel= D('Houseimage');
-		$house_lists = $houseModel->getLists();
+		$house_type_id  = isset($_GET['type']) ?$_GET['type'] :'all';
+		$orientation_id = isset($_GET['orientation']) ?$_GET['orientation'] :'all';
+		$tab_id = isset($_GET['tab']) ?$_GET['tab'] :'all';
+		$condition_str = 'type-'.$house_type_id.'orientation-'.$orientation_id.'tab-'.$tab_id;
+		$ids = $findConditionModel->where(array('key'=>$condition_str))->getField('ids');
+		$house_id_arr = explode(',', $ids);
+		$where['id'] =array('in',$house_id_arr);
+		$house_lists = $houseModel->getLists($where);
+		// var_dump($houseModel->getLastSql());die();
 		foreach ($house_lists as $key => $value) {
 			$tabArr = $value['tab_id'];
 			$tabArr = explode(',', $tabArr);
@@ -49,6 +58,7 @@ class ErshoufangController extends CommonController {
 		$orientationModel = D('Orientation');
 		$where = "id=4";
 		$currentCity = $regionModel->getLists($where);
+		var_dump($regionModel->getLastSql());die();
 		// var_dump($currentCity);die();
 		$where = "parent_id = {$currentCity[0]['id']}";
 		$region = $regionModel->getLists($where);
